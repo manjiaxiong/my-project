@@ -1,0 +1,64 @@
+body{
+	font-size: 14px;
+}
+.container{
+	width: 1200px;
+	margin-left: auto;
+	margin-right: auto;
+}
+a{
+	text-decoration: none;
+	color: #3c4972
+}
+/*浮动共同样式开始*/ 
+.fl{
+	float: left;
+}
+.fr{
+	float: right;
+}
+.clearfix:after{
+	height: 0;
+	visibility: hidden;;
+	clear: both;
+	display: block;
+	content: "";
+}
+.clearfix{
+	*zoom: 1;
+}
+/*浮动共同样式结束*/
+/*过度共通样式开始*/
+.transition{
+	transition: all 1s;
+}
+
+/*过度共通样式结束*/
+/*下拉菜单共同部分开始*/
+.dropdown-li{
+	position: relative;
+}
+.dropdown-layer{
+	position: absolute;
+
+}
+.dropdown-layer-left{
+	left: 0px;
+}
+.dropdown-layer-right{
+	right: 0px;
+}
+/*下拉菜单共同部分结束*/
+/*加载共通开始*/
+.dropdown-load{
+	/*width: 80px;
+	height: 60px;*/
+	width: 32px;
+	height: 32px;
+	padding: 30px;
+	background-image: url(../images/loading.gif);
+	background-repeat: no-repeat;
+	background-color: #fff;
+	background-position: center center;
+}
+/*加载共通结束*/

@@ -1,0 +1,42 @@
+<!--pages/article/article-item.wxml-->
+ <import src="./template/article-item.wxml"/>
+<view>
+  <swiper indicator-dots="true"  autoplay="true" interval="3000" duration="500">
+      <swiper-item>
+          <image src="/images/swiper/1.jpg" class="slide-image" />
+      </swiper-item>
+      <swiper-item>
+          <image src="/images/swiper/4.jpg" class="slide-image" />
+      </swiper-item>
+      <swiper-item>
+          <image src="/images/swiper/3.jpg" class="slide-image" />
+      </swiper-item>
+  </swiper>
+    <view class='article-wrap'>
+      <!-- <view wx:for="{{articles}}" wx:for-index="idx" wx:for-item="article" wx:key="idx">
+      {{idx}}
+      </view> -->
+          <!-- <block wx:for="{{articles}}" wx:for-index="idx" wx:for-item="article" wx:key="idx"> {{idx}}
+          </block> -->
+          <block wx:for="{{articles}}" wx:for-item="article" wx:for-index="idx" wx:key="idx">
+          <!-- <view class='article-item'>
+        <view class='article-head'>
+          <image class='article-head-avatar' src='{{article.avatar}}'></image>
+          <text class='article-head-date'>{{article.date}}</text>
+        </view>
+        <text class='article-title'>{{article.title}}</text>
+        <image class='article-img' src='{{article.img}}'></image>
+        <text class='article-desc'>{{article.desc}}</text>
+        <view class='article-footer'>
+          
+          <text class='article-footer-text'>{{article.star}}</text>
+          
+          <text class='article-footer-text'>{{article.view}}</text> 
+        </view>
+      </view> -->
+     <view catchtap="tapArticleItem" data-article-id="{{article.articleId}}">
+      <template is="articleItem" data="{{...article}}"/>
+      </view>
+          </block>
+    </view>
+</view>

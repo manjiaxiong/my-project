@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>012-插件练习.html</title>
+	<link rel="stylesheet" href="css/common.css">
+	<style>
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		div{
+			width: 300px;
+			height: 300px;
+			background-color: red;
+			display: none;
+			padding: 20px;
+			border: 20px yellow solid;
+
+		}
+
+	</style>
+</head>
+<body>
+	<button>显示</button>
+	<button>隐藏</button>
+	<div class="transition"></div>
+	<!-- <div class="transition"></div> -->
+</body>
+<script src="js/jquery-1.12.4.js"></script>
+<script src="js/showhide-练习.js"></script>
+<script>
+
+</script>
+<script>
+	$(function(){
+		$('div').on('show shown hide hidden',function(ev){
+			console.log(ev.type)
+		});
+		var $div=$('div')
+		$div.showHide(
+			{
+				js:true,
+				mode:'slideLeftRight'
+			});
+		$('button').eq(0).on('click',function(){
+				$div.showHide('show');
+			});
+		$('button').eq(1).on('click',function(){
+				$div.showHide('hide');
+			});
+		});
+
+</script>
+</html>

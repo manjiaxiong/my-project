@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>011-显示隐藏练习.html</title>
+	<style>
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		div{
+			width: 200px;
+			height: 200px;
+			padding: 20px;
+			border:20px yellow solid;
+			background-color: red;
+		}
+	</style>
+</head>
+<body>
+	<button>显示</button>
+	<button>隐藏</button>
+	<div></div>
+</body>
+<script src="js/jquery-1.12.4.js"></script>
+<script>
+	var js={
+		slide:{
+			init:function($elem,callback){//初始化
+				if($elem.is(':hidden')){
+					$elem.data('status','hidden');
+					typeof callback=='function' && callback();
+				}else{
+					$elem.data('status','show');
+				}
+			},
+			show:function($elem){//显示
+				if($elem.data('status')=='show') return;
+				if($elem.data('status')=='shown') return;
+				$elem.data('status','show').trigger('show');
+				$elem.stop().slideDown().data('status','shown').trigger('shown');
+				},
+			hide:function($elem){//隐藏
+				if($elem.data('status')=='hide') return;
+				if($elem.data('status')=='hidden') return;
+				$elem.data('status','hide');
+				$elem.stop().slideUp().data('status','hidden');
+			}
+		},
+		slideLeftRight:{
+			init:function($elem){
+				$elem.removeClass('transition');//清除不利因素
+				//记录属性
+				var options={
+					width:$elem.css('width'),
+					paddingLeft:$elem.css('paddingLeft'),
+					paddingRight:$elem.css('paddingRight'),
+					borderLeft:$elem.css('borderLeft'),
+					borderRight:$elem.css('borderRight')
+				}
+				$elem.data('options',options)
+				//初始化状态
+				if($elem.is(':hidden')){
+					$elem.data('status','hidden');
+					$elem.css({
+						width:0,
+						paddingLeft:0,
+						paddingRight:0,
+						borderLeft:0,
+						borderRight:0
+					})
+				}else{
+					$elem.data('status','show');
+				}
+			},
+			show:function($elem){
+				$elem.show();
+				if($elem.data('status')=='show') return;
+				if($elem.data('status')=='shown') return;
+				$elem.data('status','show').trigger('show');
+				$elem.stop().animate($elem.data('options')).data('status','shown').trigger('shown');
+			},
+			hide:function($elem){
+				if($elem.data('status')=='hide') return;
+				if($elem.data('status')=='hidden') return;
+				$elem.data('status','hide');
+				$elem.stop().animate({
+						width:0,
+						paddingLeft:0,
+						paddingRight:0,
+						borderLeft:0,
+						borderRight:0
+					}).data('status','hidden');
+			}
+		}
+	}
+</script>
+<script>
+	$(function(){
+		$('div').on('show shown hide hidden',function(ev){
+			console.log(ev.type)
+		})
+		js.slideLeftRight.init($('div'));
+		$('button').eq(0).on('click',function(){
+			js.slideLeftRight.show($('div'));
+		});
+		$('button').eq(1).on('click',function(){
+			js.slideLeftRight.hide($('div'))
+		})
+			});
+</script>
+</html>

@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>005-显示隐藏功能-淡入淡出共通.html</title>
+	<style>
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		div{
+			width: 300px;
+			height: 300px;
+			background-color: red;
+			display: none;
+		}
+
+	</style>
+</head>
+<body>
+	<button>显示</button>
+	<button>隐藏</button>
+	<div ></div>
+</body>
+<script src="js/jquery-1.12.4.js"></script>
+<script>
+	function init($elem){
+		if($elem.is(':hidden')){
+				$elem.data('status','hidden');
+			}
+		else{
+				$elem.data('status','show');
+			}
+	};
+	function show($elem,callback){
+		if($elem.data('status')=='shown') return;
+		if($elem.data('status')=='show') return;
+		$elem.trigger('show').data('status','show');
+		typeof callback=='function'&& callback();
+	};
+	function hide($elem,callback){
+		if($elem.data('status')=='hidden') return;
+		if($elem.data('status')=='hide') return;
+		$elem.trigger('hide').data('status','hide');
+		typeof callback=='function'&& callback();
+	};
+	var slient={
+		init:function($elem){
+			init($elem);
+		},
+		show:function($elem){
+			/*
+				if($elem.data('status')=='shown') return;
+				if($elem.data('status')=='show') return;
+				$elem.trigger('show').data('status','show');
+				$elem.show(2000,function(){
+						$elem.trigger('shown').data('status','shown');	
+				});
+				*/
+				show($elem,function(){
+					$elem.show(2000,function(){
+						$elem.trigger('shown').data('status','shown');	
+					});
+				});
+		},
+		hide:function($elem){
+			hide($elem,function(){
+				$elem.hide(2000,function(){
+					$elem.trigger('hidden').data('status','hidden');
+				});
+			})
+		}
+	};
+	var js={
+		fade:{
+			init:function($elem){
+				init($elem);
+			},
+			show:function($elem){
+					show($elem,function(){
+						$elem.fadeIn(2000,function(){
+							$elem.trigger('shown').data('status','shown');	
+						});
+					})
+			},
+			hide:function($elem){
+				hide($elem,function(){
+					$elem.fadeOut(2000,function(){
+						$elem.trigger('hidden').data('status','hidden');
+					});
+				});
+			}
+		},
+		slide:{
+			init:function($elem){
+				init($elem);
+			},
+			show:function($elem){
+					show($elem,function(){
+						$elem.stop().slideDown(2000,function(){
+							$elem.trigger('shown').data('status','shown');	
+						});
+					})
+			},
+			hide:function($elem){
+				hide($elem,function(){
+					$elem.stop().slideUp(2000,function(){
+						$elem.trigger('hidden').data('status','hidden');
+					});
+				});
+			}
+		}
+	}
+</script>
+<script>
+	$(function(){
+		$('div').on('show shown hide hidden',function(ev){
+			console.log(ev.type)
+		});
+		// slient.init($('div'));
+		// $('button').eq(0).on('click',function(){
+		// 		slient.show($('div'))
+		// 	});
+		// $('button').eq(1).on('click',function(){
+		// 		slient.hide($('div'))
+		// 	});
+		// });
+		
+		js.slide.init($('div'));
+		$('button').eq(0).on('click',function(){
+				js.slide.show($('div'))
+			});
+		$('button').eq(1).on('click',function(){
+				js.slide.hide($('div'))
+			});
+		});
+</script>
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>003-显示隐藏功能-自定义事件改进.html</title>
+	<link rel="stylesheet" href="css/common.css">
+	<style>
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		div{
+			width: 300px;
+			height: 300px;
+			background-color: red;
+			display: none;
+		}
+
+	</style>
+</head>
+<body>
+	<button>显示</button>
+	<button>隐藏</button>
+	<div class="transition"></div>
+</body>
+<script src="js/jquery-1.12.4.js"></script>
+<script>
+	var slient={
+		init:function($elem){
+			$elem.removeClass('transition')
+			if($elem.is(':hidden')){
+				$elem.data('status','hidden');
+				console.log(111)
+			}else{
+				$elem.data('status','show');
+			}
+		},
+		show:function($elem){
+				if($elem.data('status')=='shown') return;
+				if($elem.data('status')=='show') return;
+				$elem.trigger('show').data('status','show');
+				$elem.stop().show(2000,function(){
+						$elem.trigger('shown').data('status','shown');	
+				});
+		},
+		hide:function($elem){
+			if($elem.data('status')=='hidden') return;
+			if($elem.data('status')=='hide') return;
+			$elem.trigger('hide').data('status','hide');
+			$elem.stop().hide(2000,function(){
+				$elem.trigger('hidden').data('status','hidden');
+			});
+		}
+	}
+</script>
+<script>
+	$(function(){
+		$('div').on('show shown hide hidden',function(ev){
+			// console.log(ev.type)
+			if(ev.type=='show'){
+				console.log('show...');
+			}else if(ev.type=='shown'){
+				console.log('shown...');
+			}else if(ev.type=='hide'){
+				console.log('hide...');
+			}else if(ev.type=='hidden'){
+				console.log('hidden...');
+			}
+		});
+		slient.init($('div'));
+		$('button').eq(0).on('click',function(){
+				slient.show($('div'))
+			});
+		$('button').eq(1).on('click',function(){
+				slient.hide($('div'))
+			});
+		});
+</script>
+</html>

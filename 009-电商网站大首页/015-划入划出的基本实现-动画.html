@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>016-划入划出的基本实现-动画.html</title>
+	<style>
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		div{
+			width: 100px;
+			height: 100px;
+			background-color: red;
+			position: absolute;
+			top: 100px;
+			left: 0px;
+		}
+		button{
+			width: 40px;
+			height: 40px;
+		}
+	</style>
+</head>
+<body>
+	<button>复原</button>
+	<button>移动</button>
+	<div class="box"></div>
+</body>
+<script src="js/jquery-1.12.4.js"></script>
+<script>
+	function Slient($elem){
+		this.$elem=$elem;
+		this.clientX=this.$elem.css('left');
+		this.clientY=this.$elem.css('top');
+	}
+	Slient.prototype={
+		constructor:Slient,
+		to:function(x,y){
+			x= (typeof x=='number') ? x :this.clientX;
+			y= (typeof y=='number') ? y :this.clientY;
+			if(this.clientX==x&&this.clientY==y) return;
+
+			this.$elem.trigger('move');
+			this.$elem.css({
+				top:y,
+				left:x
+			});
+			this.$elem.trigger('moved');
+			this.clientX=x;
+			this.clientY=y;
+		},
+		x:function(x){
+			this.to(x);
+		},
+		y:function(y){
+			this.to(null,y);
+		}
+	};
+	function JS($elem){
+		this.$elem=$elem;
+		this.clientX=this.$elem.css('left');
+		this.clientY=this.$elem.css('top');
+	}
+	JS.prototype={
+		constructor:JS,
+		to:function(x,y){
+			x= (typeof x=='number') ? x :this.clientX;
+			y= (typeof y=='number') ? y :this.clientY;
+			if(this.clientX==x&&this.clientY==y) return;
+
+			this.$elem.trigger('move');
+			this.$elem.stop().animate({
+				top:y,
+				left:x
+			});
+			this.$elem.trigger('moved');
+			this.clientX=x;
+			this.clientY=y;
+		},
+		x:function(x){
+			this.to(x);
+		},
+		y:function(y){
+			this.to(null,y);
+		}
+	}
+</script>
+<script>
+	$(function(){
+		var move=new JS($('.box'));
+		$('.box').on('move moved',function(ev){
+			console.log(ev.type)
+		})
+		$('button').eq(0).on('click',function(){
+			move.y(100);
+		})
+		$('button').eq(1).on('click',function(){
+			move.y(200);
+		})
+			});
+		
+</script>
+</html>

@@ -1,0 +1,8 @@
+<template name="movieStar">
+           <block wx:for="{{stars}}" wx:key="index">
+      <image 
+        src="{{item == 1 ? '/images/icon/star-active.png' : '/images/icon/star-none.png'}}">
+      </image>
+    </block>
+            <text class='score'>{{score}}</text>
+</template>

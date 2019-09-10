@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>index.html</title>
+	<link rel="stylesheet" href="/static/css/index.css">
+</head>
+<body>
+	<div class="container">
+		<div class="head">
+			<h1>ToDoList</h1>
+			<input type="text" autocomplete="off" class="todo-input">
+		</div>
+		<ul class="todo-wrap">
+			{% for item in data %}
+			<li class="todo-item" data-id="{{ item.id }}">{{ item.task }}</li>
+			{% endfor %}
+		</ul>
+	</div>
+</body>
+<script src="/static/js/jquery-1.12.4.js"></script>
+<script src="/static/js/index.js"></script>
+</html>

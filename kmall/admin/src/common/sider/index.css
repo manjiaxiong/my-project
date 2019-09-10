@@ -1,0 +1,10 @@
+.AdminSider a.active{
+    color: #1DA57A;
+}
+.AdminSider .ant-menu-item-selected{
+    background-color: transparent !important;
+}
+
+.AdminSider .ant-menu-item-selected:after{
+    border-right: none  !important;
+}
