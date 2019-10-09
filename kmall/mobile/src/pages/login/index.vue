@@ -6,7 +6,6 @@
 		    required
 		    label="用户名"
 		    placeholder="请输入用户名"
-			:disabled="disabled"
 		    :error-message="message"
 		    @input="checkUsername(username)"
 
@@ -35,8 +34,7 @@
             password:'',
             phone:'',
             isSucess:false,
-            message:'',
-            disabled:false
+            message:''
 	        }
 	    },
 	    methods:{
@@ -47,8 +45,9 @@
 	    			this.disabled=true
 	    			this.message="最长字符为3"
 	    		}
-	    		else if(value){
-
+	    		else if(!/^[a-z][a-z0-9]{2,5}$/.test(value)){
+	    			this.disabled=true
+	    			this.message="用户名以字母开头且3-6位"
 	    		}
 	    	},
 	    	toRegister:function(){

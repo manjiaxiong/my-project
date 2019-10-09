@@ -7,7 +7,7 @@ const getSetCountAction = (payload)=>({
     type:types.SET_COUNT,
     payload
 })
-
+ 
 export const getCountAction = (values)=>{
     return (dispatch,getState)=>{
         api.getCounts()
