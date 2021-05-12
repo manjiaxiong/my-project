@@ -34,6 +34,6 @@
   "dependencies": {
     "font-awesome": "^4.7.0",
     "hogan.js": "^3.0.2",
-    "swiper": "^4.5.0"
+    "swiper": "^6.5.1"
   }
 }
